@@ -2,6 +2,7 @@
 <html lang="ca">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 👈 Hace que escale bien en móviles -->
   <title>Assignació de Grups</title>
   <style>
     body {
@@ -9,19 +10,24 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh; /* 👈 cambio para evitar problemas en móvil */
       margin: 0;
+      padding: 10px; /* 👈 añade aire en pantallas pequeñas */
       background: #f0f4f8;
     }
 
     .container {
       background: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       text-align: center;
       max-width: 400px;
       width: 100%;
+    }
+
+    h2 {
+      font-size: 1.4rem; /* 👈 escala mejor en móvil */
     }
 
     input {
@@ -30,7 +36,7 @@
       margin-top: 10px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 1rem;
     }
 
     button {
@@ -41,7 +47,7 @@
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 1rem;
       cursor: pointer;
     }
 
@@ -50,10 +56,30 @@
     }
 
     .group {
-      font-size: 22px;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #0078D7;
       margin-top: 20px;
+    }
+
+    /* 📱 Ajustes para móviles */
+    @media (max-width: 480px) {
+      .container {
+        padding: 15px;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      input, button {
+        font-size: 0.95rem;
+        padding: 10px;
+      }
+
+      .group {
+        font-size: 1.3rem;
+      }
     }
   </style>
 </head>
@@ -65,7 +91,7 @@
   </div>
 
   <script>
-    const alumnes = [
+        const alumnes = [
       // GRUPO ALPHA
       { nom: "Pablo Angulo Ardanuy", grup: "Alpha" },
       { nom: "Roger Callejas Cartes", grup: "Alpha" },
