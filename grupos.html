@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Assignació de Grups</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f0f4f8;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      width: 100%;
+      background: #0078D7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005a9e;
+    }
+
+    .group {
+      font-size: 22px;
+      font-weight: bold;
+      color: #0078D7;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <h2>Introdueix el teu nom</h2>
+    <input type="text" id="nameInput" placeholder="Escriu el teu nom...">
+    <button onclick="assignGroup()">Entrar</button>
+  </div>
+
+  <script>
+    const alumnes = [
+      // GRUPO ALPHA
+      { nom: "Pablo Angulo Ardanuy", grup: "Alpha" },
+      { nom: "Roger Callejas Cartes", grup: "Alpha" },
+      { nom: "Laia Campos Castro", grup: "Alpha" },
+      { nom: "Marc Vidaña Bermejo", grup: "Alpha" },
+      { nom: "Arnau Contijoch Foguet", grup: "Alpha" },
+      { nom: "Marc Daga", grup: "Alpha" },
+      { nom: "Nahuel Duran Andaluz", grup: "Alpha" },
+      { nom: "Octavi Artigas Pirla", grup: "Alpha" },
+      { nom: "Marc Aviles Vazquez", grup: "Alpha" },
+      { nom: "Gerard Caballero Rodriguez", grup: "Alpha" },
+      { nom: "Iker Carmona Marin", grup: "Alpha" },
+      { nom: "Dominic Carpio i Picon", grup: "Alpha" },
+      { nom: "Jana Cespedes Brucart", grup: "Alpha" },
+      { nom: "Edurne Baños Santamaria", grup: "Alpha" },
+      { nom: "Miguel Bellido Rodriguez", grup: "Alpha" },
+      { nom: "Nicolas Humberto Castro Garcia", grup: "Alpha" },
+      { nom: "Adrian Checa Salazar", grup: "Alpha" },
+      { nom: "Gerard Diaz Vellarino", grup: "Alpha" },
+      // GRUPO BETA
+      { nom: "Alair Barbosa Rocha", grup: "Beta" },
+      { nom: "Pablo Cases Garcia", grup: "Beta" },
+      { nom: "Nicolas Cortes Gelo", grup: "Beta" },
+      { nom: "Samuel de la Riba Cabellud", grup: "Beta" },
+      { nom: "Toumany Kroutoum Diakite", grup: "Beta" },
+      { nom: "Leire Diaz Alcaraz", grup: "Beta" },
+      { nom: "Leticia Barros Dias", grup: "Beta" },
+      { nom: "Daniel Bel Gil", grup: "Beta" },
+      { nom: "Jan Botey Hernandez", grup: "Beta" },
+      { nom: "David Caceres Peso", grup: "Beta" },
+      { nom: "Dana Castañeda Zules", grup: "Beta" },
+      { nom: "Jose Antonio Caraban Laso", grup: "Beta" },
+      { nom: "Adriana de Montella Verdejo", grup: "Beta" },
+      { nom: "Gael Lázaro Barraza", grup: "Beta" },
+      { nom: "Madison Alemany Abrehart", grup: "Beta" },
+      { nom: "Adam Broufraji Chaara", grup: "Beta" },
+      { nom: "Jose Cabello Nacarino", grup: "Beta" },
+      { nom: "Paula Cañadas Valverde", grup: "Beta" },
+      // GRUPO GAMMA
+      { nom: "Amal Errifai Moumouh", grup: "Gamma" },
+      { nom: "Yasin Gallano Mimite", grup: "Gamma" },
+      { nom: "Joan Garcia Bucheras", grup: "Gamma" },
+      { nom: "Ainet Vilaseca Jordana", grup: "Gamma" },
+      { nom: "Pol Garro Albert", grup: "Gamma" },
+      { nom: "Inuk Garcia Montesinos", grup: "Gamma" },
+      { nom: "Stacy Londoño Rodriguez", grup: "Gamma" },
+      { nom: "Santi Cornejo Vila", grup: "Gamma" },
+      { nom: "Nil Curtu Martinez", grup: "Gamma" },
+      { nom: "Ruben Diaz Soler", grup: "Gamma" },
+      { nom: "Marti Falagueras Llop", grup: "Gamma" },
+      { nom: "Nassim Fresno Cardenal", grup: "Gamma" },
+      { nom: "Noa Garcia Rodriguez", grup: "Gamma" },
+      { nom: "Brahim El metmari El metmari", grup: "Gamma" },
+      { nom: "Alejandro Felgueroso Merino", grup: "Gamma" },
+      { nom: "Carla Garcia Romeral", grup: "Gamma" },
+      { nom: "Pablo Giménez de Toro", grup: "Gamma" },
+      { nom: "Ainhoa Gomez Garcia", grup: "Gamma" },
+      // GRUPO DELTA
+      { nom: "Joel Cumplido Cabello", grup: "Delta" },
+      { nom: "Eva Diaz Gomez", grup: "Delta" },
+      { nom: "Paola Galvez Martin", grup: "Delta" },
+      { nom: "Carla Gavalda Claramunt", grup: "Delta" },
+      { nom: "Eric Liarte Vera", grup: "Delta" },
+      { nom: "Daniel Alaman Muñoz", grup: "Delta" },
+      { nom: "Victor Albareda Gomez", grup: "Delta" },
+      { nom: "Iker Martin Castro", grup: "Delta" },
+      { nom: "Paula Miguez Montero", grup: "Delta" },
+      { nom: "Guillem Serrano Estrada", grup: "Delta" },
+      { nom: "Alan Prat Castro", grup: "Delta" },
+      { nom: "Paula Aguilera Briceño", grup: "Delta" },
+      { nom: "Martin Fernandez Sanchez", grup: "Delta" },
+      { nom: "Victor Fernandez Sanchez", grup: "Delta" },
+      { nom: "Stefano Gamarra Vilela", grup: "Delta" },
+      { nom: "Roger Lancharro Sanchis", grup: "Delta" },
+      { nom: "Dar Mesa Dimova", grup: "Delta" },
+      { nom: "Irvin Real Monge", grup: "Delta" },
+      { nom: "Alexis Asiama Melgar", grup: "Delta" },
+      { nom: "Kevin Xavi Balderrama Zumba", grup: "Delta" },
+      { nom: "Josep Calafat Marques", grup: "Delta" },
+      { nom: "Guillem Carles Coll", grup: "Delta" },
+      // GRUPO RO
+      { nom: "Jose Antonio Marquez Montalban", grup: "Ro" },
+      { nom: "Danil Moliner Isaac", grup: "Ro" },
+      { nom: "Jaume Navarro Marti", grup: "Ro" },
+      { nom: "Pau Segura Gervas", grup: "Ro" },
+      { nom: "Izan Tello Lopez", grup: "Ro" },
+      { nom: "Takeshi Oscar Yoshitomi Fuertes", grup: "Ro" },
+      { nom: "Oriol Alemany Planas", grup: "Ro" },
+      { nom: "Mohamed Adlane Bouhala", grup: "Ro" },
+      { nom: "Marc Fernandez Sanjose", grup: "Ro" },
+      { nom: "Alejandro Deian Fernandez", grup: "Ro" },
+      { nom: "Joaquin Gea Pradera", grup: "Ro" },
+      { nom: "Jordi Li Enhua", grup: "Ro" },
+      // GRUPO ZETA
+      { nom: "David Aguilera Rodriguez", grup: "Zeta" },
+      { nom: "Hicham Aharmym El Omary", grup: "Zeta" },
+      { nom: "Max Arcusa Ferri", grup: "Zeta" },
+      { nom: "Paula Canals Montiagut", grup: "Zeta" },
+      { nom: "Oriol Carreño Parareda", grup: "Zeta" },
+      { nom: "Angie Gabriela Castro Yagual", grup: "Zeta" },
+      { nom: "Dani Aladesa Sánchez", grup: "Zeta" },
+      { nom: "Iker Ariza Diaz", grup: "Zeta" },
+      { nom: "Sandro Ayala Betancourt", grup: "Zeta" },
+      { nom: "Ana Beltri Cebrian", grup: "Zeta" },
+      { nom: "Vladislav Bezbidobych", grup: "Zeta" },
+      { nom: "Laia Cura Gascon", grup: "Zeta" },
+      { nom: "Muhammad Abubakar", grup: "Zeta" },
+      { nom: "Leo Asensio Urosevic", grup: "Zeta" },
+      { nom: "Guillem Berdie Gaitan", grup: "Zeta" },
+      { nom: "Andrés David Blanco Olivares", grup: "Zeta" },
+      { nom: "Hector Echevarria Pueyo", grup: "Zeta" },
+      { nom: "Salma El Gharbaoui Bonhoure", grup: "Zeta" },
+      // GRUPO KSI
+      { nom: "Alex Bartolome Sanchez", grup: "Ksi" },
+      { nom: "Jasmine Calero Larfa", grup: "Ksi" },
+      { nom: "Aleix Cortinas Bou", grup: "Ksi" },
+      { nom: "Gael Diaz Martinez", grup: "Ksi" },
+      { nom: "Mariona Diaz Lopez", grup: "Ksi" },
+      { nom: "Iker Dominguez Riera", grup: "Ksi" },
+      { nom: "Celma Donadeu Garcia", grup: "Ksi" },
+      { nom: "Ernesto Espejo Fuentes", grup: "Ksi" },
+      { nom: "Ilias Allach Souiyat", grup: "Ksi" },
+      { nom: "Miquel Anguita Martin", grup: "Ksi" },
+      { nom: "Oriol Ballber Delgado", grup: "Ksi" },
+      { nom: "Sahite Boye Tamba", grup: "Ksi" },
+      { nom: "Martin Catriman Corrales", grup: "Ksi" },
+      { nom: "Dani Chiad", grup: "Ksi" },
+      { nom: "Cesc Fortuny Sintes", grup: "Ksi" },
+      { nom: "Eki Franch Aguinaco", grup: "Ksi" },
+      { nom: "Nil Garcia Gabriel", grup: "Ksi" },
+      // GRUPO SHO
+      { nom: "Marti Alonso Arismendi", grup: "Sho" },
+      { nom: "Ainara Amador Galvez", grup: "Sho" },
+      { nom: "Joan Balaña Pruna", grup: "Sho" },
+      { nom: "Artur Borras Hervas", grup: "Sho" },
+      { nom: "Martina Calvet Cano", grup: "Sho" },
+      { nom: "Anna Campos Luque", grup: "Sho" },
+      { nom: "Alex Gonzalez Ferreras", grup: "Sho" },
+      { nom: "Jan Hernandez Ventura", grup: "Sho" },
+      { nom: "Jordi Ingles Lorenzo", grup: "Sho" },
+      { nom: "Marc Llopart Saldarriaga", grup: "Sho" },
+      { nom: "Aaron López Martinez", grup: "Sho" },
+      { nom: "Laia Luque Roldan", grup: "Sho" },
+      { nom: "Jasmyne Kyle Mariano Govina", grup: "Sho" },
+      { nom: "Francisco Molina Tornay", grup: "Sho" },
+      { nom: "Jan Casado Pietrzyk", grup: "Sho" },
+      { nom: "Iker Castell Daifuku", grup: "Sho" },
+      { nom: "Beatriz Ariadna Girona Carbajal", grup: "Sho" },
+      { nom: "Hugo Lozano Muñoz", grup: "Sho" },
+      { nom: "Marc Martinez Fernandez", grup: "Sho" },
+      { nom: "Rocio Molina Valsera", grup: "Sho" },
+      { nom: "Oscar Vega Quiroga", grup: "Sho" },
+      // GRUPO IOTA
+      { nom: "Aitor de Manuel Ros", grup: "Iota" },
+      { nom: "Jessica Escalante Armesto", grup: "Iota" },
+      { nom: "Biel Español Lozano", grup: "Iota" },
+      { nom: "Pedro Guareño Lopez", grup: "Iota" },
+      { nom: "Angel Guerrero Giraldo", grup: "Iota" },
+      { nom: "Hamza Hanafi", grup: "Iota" },
+      { nom: "Olaf de Ramon Ribalta", grup: "Iota" },
+      { nom: "Adrian Dieguez Davila", grup: "Iota" },
+      { nom: "Unai Escalante Armesto", grup: "Iota" },
+      { nom: "Alba Font Pallach", grup: "Iota" },
+      { nom: "Pau Freixedas Bandera", grup: "Iota" },
+      { nom: "Bruno Garcia Lopez", grup: "Iota" },
+      { nom: "Katherine Nicole Farias Moran", grup: "Iota" },
+      { nom: "Jordi Fernandez Ruiz", grup: "Iota" },
+      { nom: "Jaime Fernandez Ruiz", grup: "Iota" },
+      { nom: "Adrian Garcia Flores", grup: "Iota" },
+      { nom: "Samuel Ramon Hincapie Morales", grup: "Iota" },
+      { nom: "Gloria Lesheras Heras", grup: "Iota" },
+      // GRUPO LAMBDA
+      { nom: "Aday Martin Ventura", grup: "LAMBDA" },
+      { nom: "Javier Morenilla Garcia de Acilu", grup: "LAMBDA" },
+      { nom: "Javier Mateo Muresan", grup: "LAMBDA" },
+      { nom: "Yeray Noguera Morcilla", grup: "LAMBDA" },
+      { nom: "Daniel Oyonarte Risque", grup: "LAMBDA" },
+      { nom: "Arnau Pedrerol Borros", grup: "LAMBDA" },
+      { nom: "Alessia Janely Juarez", grup: "LAMBDA" },
+      { nom: "Adria Llach Badenes", grup: "LAMBDA" },
+      { nom: "Ana Mariño Fernandez", grup: "LAMBDA" },
+      { nom: "Pol Martinez Marti", grup: "LAMBDA" },
+      { nom: "Iker Martinez Espin", grup: "LAMBDA" },
+      { nom: "Lucia Mas Millat", grup: "LAMBDA" },
+      { nom: "Anthony Gabriel Gonzalez", grup: "LAMBDA" },
+      { nom: "Oriol Izquierdo Sanchez", grup: "LAMBDA" },
+      { nom: "Pere Mas Orriols", grup: "LAMBDA" },
+      { nom: "David Santiago Moreno Cruz", grup: "LAMBDA" },
+      { nom: "Jordi Parrilla Gil", grup: "LAMBDA" },
+      // GRUPO MI
+      { nom: "Marti Felius Huguet", grup: "MI" },
+      { nom: "Gerard Galan Morote", grup: "MI" },
+      { nom: "Francisco Garrido Aguilar", grup: "MI" },
+      { nom: "Alberto Ibañez Castellsaguer", grup: "MI" },
+      { nom: "Biel Jorda Cordero", grup: "MI" },
+      { nom: "Alexey Chernykh", grup: "MI" },
+      { nom: "Jordi Closas Papiol", grup: "MI" },
+      { nom: "Marc del Pueblo Mañas", grup: "MI" },
+      { nom: "Abril Escoda Lopez", grup: "MI" },
+      { nom: "Marc Ferrer Ortuño", grup: "MI" },
+      { nom: "Didac Font Navidad", grup: "MI" },
+      { nom: "Adam Bouloufa Laantit", grup: "MI" },
+      { nom: "Adan Carretero Diakite", grup: "MI" },
+      { nom: "Natalia Dalmau Ogursova", grup: "MI" },
+      { nom: "Alex Diaz Kauffmann", grup: "MI" },
+      { nom: "Alex Dominguez Fromageot", grup: "MI" },
+      { nom: "Daniel Duran Cejas", grup: "MI" },
+      { nom: "Iker Fernandez Garcia", grup: "MI" },
+      // GRUPO ÉPSILON
+      { nom: "Marc Colome Torres", grup: "Épsilon" },
+      { nom: "Alberto Jimenez Quintero", grup: "Épsilon" },
+      { nom: "Maria Macias Pérez", grup: "Épsilon" },
+      { nom: "Vanesa Moreno Arroyo", grup: "Épsilon" },
+      { nom: "Gabriel Norte Gimenez", grup: "Épsilon" },
+      { nom: "Angel MoisesPacheco Frias", grup: "Épsilon" },
+      { nom: "Aisha Solano Martinez", grup: "Épsilon" },
+      { nom: "Ixury Juliath Solis Meraz", grup: "Épsilon" },
+      { nom: "Carlos Andre Leyva Atunca", grup: "Épsilon" },
+      { nom: "Elqui Lautaro Medina Mackie", grup: "Épsilon" },
+      { nom: "Tran Hieu Xanh Pham", grup: "Épsilon" },
+      // GRUPO QOPPA
+      { nom: "Ona Perez Petit", grup: "Qoppa" },
+      { nom: "Victor Perez Ortiz", grup: "Qoppa" },
+      { nom: "Aina Piñol Giner", grup: "Qoppa" },
+      { nom: "Biel Pique Ripolles", grup: "Qoppa" },
+      { nom: "Roger Remola Sanchez", grup: "Qoppa" },
+      { nom: "Paula Miguela Moncayo", grup: "Qoppa" },
+      { nom: "Raul Morales Jara", grup: "Qoppa" },
+      { nom: "Pau Piovan Poate", grup: "Qoppa" },
+      { nom: "Pedro Quesada Campos", grup: "Qoppa" },
+      { nom: "Pau Ribas Albella", grup: "Qoppa" },
+      { nom: "Santiago Rodriguez Denis", grup: "Qoppa" },
+      { nom: "Gina Vilarrubias Secka", grup: "Qoppa" },
+      { nom: "Jordi Pons Mir", grup: "Qoppa" },
+      { nom: "Bernat Rodriguez Closa", grup: "Qoppa" },
+      { nom: "Xavier Rodriguez Fornieles", grup: "Qoppa" },
+      { nom: "Pol Roig Vayà", grup: "Qoppa" },
+      { nom: "David Ruiz Martin", grup: "Qoppa" },
+      { nom: "Alex Ruiz Moreno", grup: "Qoppa" },
+      // GRUPO PSI
+      { nom: "Joan Cañete Vera", grup: "Psi" },
+      { nom: "Luca Clementi Farran", grup: "Psi" },
+      { nom: "Abril de Gironella Ribera", grup: "Psi" },
+      { nom: "Joaquin Fernandez Perez", grup: "Psi" },
+      { nom: "Ivan Gomez Muñoz", grup: "Psi" },
+      { nom: "Pau Gomila Escandell", grup: "Psi" },
+      { nom: "Daniel Heredia Romano", grup: "Psi" },
+      { nom: "Ana Lucia Murillo Avellan", grup: "Psi" },
+      { nom: "Imad Oulkaid Ahbeddou", grup: "Psi" },
+      { nom: "Carla Pascual Martinez", grup: "Psi" },
+      { nom: "Elsa Ramirez Arcas", grup: "Psi" },
+      { nom: "Marti Ribera Prio", grup: "Psi" },
+      { nom: "Mireia Romaguera i Montayola", grup: "Psi" },
+      { nom: "Andreu Sentañes Albarracin", grup: "Psi" },
+      { nom: "Simon Ariki Pakomio Rodriguez", grup: "Psi" },
+      { nom: "Marc Patricio Suarez", grup: "Psi" },
+      { nom: "Eskedar Pietx Prat", grup: "Psi" },
+      { nom: "Cristina Rodriguez Arias", grup: "Psi" },
+      { nom: "Pol Velasco Santiago", grup: "Psi" },
+      { nom: "David Zabay Parras", grup: "Psi" },
+      { nom: "Marc Ortega Garcia", grup: "Psi" },
+      { nom: "Adrian Morales Alcalde", grup: "Psi" },
+      // GRUPO OMEGA
+      { nom: "Leon Lavado Herrera", grup: "Omega" },
+      { nom: "Pol Medina Giraldo", grup: "Omega" },
+      { nom: "Daniel Perez Hernandez", grup: "Omega" },
+      { nom: "Marc Pujantell Martin", grup: "Omega" },
+      { nom: "Cloe Roa Raffetto", grup: "Omega" },
+      { nom: "Lucas Gea Rubio", grup: "Omega" },
+      { nom: "Alex Huguet Lafuente", grup: "Omega" },
+      { nom: "Olivia Lavado Herrera", grup: "Omega" },
+      { nom: "Arnau Luna Carmona", grup: "Omega" },
+      { nom: "Yassin Majid Daiker", grup: "Omega" },
+      { nom: "Gerard Pla Gomez", grup: "Omega" },
+      { nom: "Sofia Ferrer Casadó", grup: "Omega" },
+      { nom: "Erick Gomez Arias", grup: "Omega" },
+      { nom: "Yeray Alexander Gonzales Bocanegra", grup: "Omega" },
+      { nom: "Alan Granados Marcos", grup: "Omega" },
+      { nom: "Daniela Panella Llinas", grup: "Omega" },
+      { nom: "Joel Perez Reyes", grup: "Omega" },
+      // GRUPO THETA
+      { nom: "Tomas Etcheverry Villarreal", grup: "Theta" },
+      { nom: "Eneko Florido Molina", grup: "Theta" },
+      { nom: "Iker Garrido Pinilla", grup: "Theta" },
+      { nom: "Catalina Ghiretti Perruzzi", grup: "Theta" },
+      { nom: "Julia Casanovas Martin", grup: "Theta" },
+      { nom: "Klaudia Gonzalez Ramirez", grup: "Theta" },
+      { nom: "Carles Laplaza Santos", grup: "Theta" },
+      { nom: "Arturo Lecona Garcia", grup: "Theta" },
+      { nom: "Arnau Garrote Gomez", grup: "Theta" },
+      { nom: "Dan Gine Garcia", grup: "Theta" },
+      { nom: "Nicolau Gomez Benet", grup: "Theta" },
+      { nom: "Ivan Gutierrez Pastor", grup: "Theta" },
+      { nom: "Richard Ramon Lazo Medina", grup: "Theta" },
+      { nom: "Berta Lliuro Miro", grup: "Theta" },
+      { nom: "Victor Llopis Fernandez", grup: "Theta" },
+      { nom: "Bruno Lobera Simón", grup: "Theta" },
+      { nom: "Melina Abril Marisol Cervera", grup: "Theta" },
+      // GRUPO NI
+      { nom: "Cristina Illamola Crosas", grup: "Ni" },
+      { nom: "Paula López Roca", grup: "Ni" },
+      { nom: "Alexia Lopez Villalon", grup: "Ni" },
+      { nom: "Laia Martin Cabre", grup: "Ni" },
+      { nom: "Mireia Martinez Roig", grup: "Ni" },
+      { nom: "Alejandro Guillen Martinez", grup: "Ni" },
+      { nom: "Sara Lopez Essaiad", grup: "Ni" },
+      { nom: "Matheus Martinelli Braga Colom", grup: "Ni" },
+      { nom: "Yare Serrano Jimenez", grup: "Ni" },
+      { nom: "Mery Tepnadze Pons", grup: "Ni" },
+      { nom: "Max Torras Aparicio", grup: "Ni" },
+      { nom: "Jose Vidal Almansa", grup: "Ni" },
+      { nom: "Anna Vilabru Llambrich", grup: "Ni" },
+      { nom: "Joel Jurado Bufias", grup: "Ni" },
+      { nom: "Aaron Buendia Becerra", grup: "Ni" },
+      { nom: "Berta Casanovas Nicolas", grup: "Ni" },
+      { nom: "Jenny Lopez Rubio", grup: "Ni" },
+      { nom: "Jordi Berrena Sanchis", grup: "Ni" },
+      { nom: "Karim Karim Hamed", grup: "Ni" },
+      { nom: "Daniel Lapuente Gonçalves", grup: "Ni" },
+      { nom: "Biel Fernandez Barea", grup: "Ni" },
+      // GRUPO ETA
+      { nom: "Guillem Revilla Recio", grup: "Eta" },
+      { nom: "Jan Romero Ruiz", grup: "Eta" },
+      { nom: "Gil Saenz Vila", grup: "Eta" },
+      { nom: "Luca Sanchez Villa", grup: "Eta" },
+      { nom: "Alessia Suarez Colman", grup: "Eta" },
+      { nom: "Agnes Valle Pinell", grup: "Eta" },
+      { nom: "Josep Ruiz de la Torre Quesada", grup: "Eta" },
+      { nom: "Nico Sierra Botinas", grup: "Eta" },
+      { nom: "Luca Trioni Pousa", grup: "Eta" },
+      { nom: "Javier Alejandro Vazquez Osorio", grup: "Eta" },
+      { nom: "Max Victoria Orriols", grup: "Eta" },
+      { nom: "Ivana Salinas Novoa", grup: "Eta" },
+      { nom: "Ricard Savall Reverte", grup: "Eta" },
+      { nom: "Roy Smart Molina", grup: "Eta" },
+      { nom: "David Sorde Cabayol", grup: "Eta" },
+      { nom: "Judith Touron Fabregat", grup: "Eta" },
+      { nom: "Unai Zugasti Lopez", grup: "Eta" },
+      // GRUPO OMICRON
+      { nom: "Pau katib Arnau", grup: "Omicron" },
+      { nom: "Eloy Lamo Mesa", grup: "Omicron" },
+      { nom: "Marc Martinez Lacruz", grup: "Omicron" },
+      { nom: "Davi Motta Catalunya", grup: "Omicron" },
+      { nom: "Jordi Pando Segura", grup: "Omicron" },
+      { nom: "Abel Perez Liso", grup: "Omicron" },
+      { nom: "Andreu Geremias Palaez", grup: "Omicron" },
+      { nom: "Achraf Hajjami Daiker", grup: "Omicron" },
+      { nom: "Delfina Lopez", grup: "Omicron" },
+      { nom: "Daniel Lopez Medina", grup: "Omicron" },
+      { nom: "Adria Millan Fernandez", grup: "Omicron" },
+      { nom: "Marc Montero de las Morenas", grup: "Omicron" },
+      { nom: "Cristian Lopez Gil", grup: "Omicron" },
+      { nom: "Ana Macias Cebrian", grup: "Omicron" },
+      { nom: "Marc Martinez Baulenas", grup: "Omicron" },
+      { nom: "Daniel Morais Ramirez", grup: "Omicron" },
+      { nom: "Francesc Navas Ruiz", grup: "Omicron" },
+      { nom: "Florencia Ignacia Nuñez Venegas", grup: "Omicron" },
+      // GRUPO PI 
+      { nom: "Lucia Sanchez Perez", grup: "Pi" },
+      { nom: "Tomas Serra Yufera", grup: "Pi" },
+      { nom: "Jan Cesc Toledano Segura", grup: "Pi" },
+      { nom: "Mauricio Urquiza Rojas", grup: "Pi" },
+      { nom: "Elias Villanueva", grup: "Pi" },
+      { nom: "Oriol Galeote Molla", grup: "Pi" },
+      { nom: "Albert Riera Gonzalez", grup: "Pi" },
+      { nom: "Ismael Sevilla Bahom", grup: "Pi" },
+      { nom: "Ivan Soler Montemayor", grup: "Pi" },
+      { nom: "Adrian Soto Forn", grup: "Pi" },
+      { nom: "Jan Vela Gili", grup: "Pi" },
+      { nom: "Javier Alejandro Vera Chavez", grup: "Pi" },
+      { nom: "Mario Rodriguez Ramos", grup: "Pi" },
+      { nom: "Ignasi Segura Pascual", grup: "Pi" },
+      { nom: "Ivan Sobrino Giron", grup: "Pi" },
+      { nom: "Gerard Vidal Martinez", grup: "Pi" },
+      { nom: "Alex Vidaurre Casanovas", grup: "Pi" },
+      { nom: "Jana Villanueva Masana", grup: "Pi" },
+      // GRUPO SIGMA
+      { nom: "Alex Andres Gil", grup: "Sigma" },
+      { nom: "Javier Bermudez", grup: "Sigma" },
+      { nom: "Houcine Boucetta", grup: "Sigma" },
+      { nom: "Sergi Garcia Rodriguez", grup: "Sigma" },
+      { nom: "Samuel Mota Cano", grup: "Sigma" },
+      { nom: "Kilian Rodriguez Gasch", grup: "Sigma" },
+      { nom: "Aitor Bardia Guaramalna", grup: "Sigma" },
+      { nom: "Fabian Farith Carrion Silva", grup: "Sigma" },
+      { nom: "Sergio Comas Trillo", grup: "Sigma" },
+      { nom: "Nil de la Sierra Dieguez", grup: "Sigma" },
+      { nom: "Marcos Hidalgo Molina", grup: "Sigma" },
+      // GRUPO ÍPSILON 
+      { nom: "Carlota Perez Ballester", grup: "Ípsilon" },
+      { nom: "Guillermo Sanchez-Sierra Montes", grup: "Ípsilon" },
+      { nom: "Teona Siradze Tchanturia", grup: "Ípsilon" },
+      { nom: "Nil Sogas Castillo", grup: "Ípsilon" },
+      { nom: "Gael Tolchinsky Uribesalgo", grup: "Ípsilon" },
+      { nom: "Damien Torra Roser", grup: "Ípsilon" },
+      { nom: "Eloy Muñoz Fonseca", grup: "Ípsilon" },
+      { nom: "David Ocaña Landines", grup: "Ípsilon" },
+      { nom: "Marc Oviedo Vargas", grup: "Ípsilon" },
+      { nom: "Aaron Saez Vega", grup: "Ípsilon" },
+      { nom: "Denis Santana Marti", grup: "Ípsilon" },
+      { nom: "Erik Soler Marcos", grup: "Ípsilon" },
+      { nom: "Leonard Mendez Parra", grup: "Ípsilon" },
+      { nom: "Joan Alejandro Ordoñez Llanos", grup: "Ípsilon" },
+      { nom: "Gabriel Pruna", grup: "Ípsilon" },
+      { nom: "Darwin Sena Trinidad", grup: "Ípsilon" },
+      { nom: "Izan Villalonga Guich", grup: "Ípsilon" },
+      { nom: "Guillermo Villuendas Perez", grup: "Ípsilon" },
+      // GRUPO FI
+      { nom: "Xavier Martinez Camiño", grup: "Fi" },
+      { nom: "Ancor Mendez Caparros", grup: "Fi" },
+      { nom: "Edgar Mirabent Calero", grup: "Fi" },
+      { nom: "Eva Perez Rodriguez", grup: "Fi" },
+      { nom: "Julieta Romero Antolin", grup: "Fi" },
+      { nom: "Jan Marti Martinez de Heuete", grup: "Fi" },
+      { nom: "Iker Nuñez del Pino", grup: "Fi" },
+      { nom: "Sharira Mariona Nuñez del Prado", grup: "Fi" },
+      { nom: "Alex Ocon Lopez", grup: "Fi" },
+      { nom: "Max Parra Casadevall", grup: "Fi" },
+      { nom: "Joel Perez Busom", grup: "Fi" },
+      { nom: "Antoni Pons Pons", grup: "Fi" },
+      { nom: "Oliver Quinapallo Mora", grup: "Fi" },
+      { nom: "Joan Quintana Bagur", grup: "Fi" },
+      { nom: "Raul Quiros Masingue", grup: "Fi" },
+      { nom: "Adria Tassoti Hugas", grup: "Fi" },
+      // GRUPO TAU
+      { nom: "Julia Mayol Pereira", grup: "Tau" },
+      { nom: "Albert Llovera Ribas", grup: "Tau" },
+      { nom: "Adam Guerrero Taknarit", grup: "Tau" },
+      { nom: "Pol Berlanga Munive", grup: "Tau" },
+      { nom: "Paul Debray Gavilan", grup: "Tau" },
+      { nom: "Sahian Rachell Sarmiento Arias", grup: "Tau" },
+      { nom: "Marcos Blasco Gaona", grup: "Tau" },
+      { nom: "Alejandro Herbas Salvatierra", grup: "Tau" },
+      { nom: "Raul Lopez Mena", grup: "Tau" },
+      { nom: "Asier Almodovar Hernandez", grup: "Tau" },
+      { nom: "Camila Victoria Tikas Favro", grup: "Tau" },
+      { nom: "Mohammed-Naser Boucharine Mohamed", grup: "Tau" },
+      { nom: "Victor Elouarma Sorribas", grup: "Tau" },
+      { nom: "Juan Andres Mejia Ramirez", grup: "Tau" },
+      { nom: "Diana Gasparini Herrero", grup: "Tau" },
+      { nom: "Hada Garcia Carrasco", grup: "Tau" },
+      { nom: "Izan Cea Rodriguez", grup: "Tau" },
+      // Puedes continuar con IOTA, LAMBDA, MI, RO, QOPPA, PSI, OMEGA, THETA, NI, ETA, OMICRON, PI, SIGMA, ÍPSILON, FI, TAU...
+    ];
+
+    function assignGroup() {
+      const input = document.getElementById("nameInput").value.trim().toLowerCase();
+      if (!input) {
+        alert("Si us plau, escriu el teu nom.");
+        return;
+      }
+
+      let grupTrobat = null;
+      for (const alumne of alumnes) {
+        if (alumne.nom.toLowerCase().includes(input)) {
+          grupTrobat = alumne.grup;
+          break;
+        }
+      }
+
+      if (grupTrobat) {
+        document.getElementById("app").innerHTML = `
+          <h2>Hola!</h2>
+          <p>El teu grup és:</p>
+          <div class="group">Grup ${grupTrobat}</div>
+        `;
+      } else {
+        alert("Nom no trobat. Si us plau, comprova la teva ortografia.");
+      }
+    }
+  </script>
+</body>
+</html>
