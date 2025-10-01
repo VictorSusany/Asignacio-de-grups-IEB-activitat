@@ -2,18 +2,27 @@
 <html lang="ca">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 👈 Hace que escale bien en móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Assignació de Grups</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh; /* 👈 cambio para evitar problemas en móvil */
+      min-height: 100vh;
       margin: 0;
-      padding: 10px; /* 👈 añade aire en pantallas pequeñas */
+      padding: 10px;
       background: #f0f4f8;
+      overflow-x: hidden;
+    }
+
+    .logo {
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 25px;
     }
 
     .container {
@@ -24,10 +33,13 @@
       text-align: center;
       max-width: 400px;
       width: 100%;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 1;
     }
 
     h2 {
-      font-size: 1.4rem; /* 👈 escala mejor en móvil */
+      font-size: 1.4rem;
     }
 
     input {
@@ -37,6 +49,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 1rem;
+      box-sizing: border-box;
     }
 
     button {
@@ -49,6 +62,7 @@
       border-radius: 8px;
       font-size: 1rem;
       cursor: pointer;
+      box-sizing: border-box;
     }
 
     button:hover {
@@ -62,8 +76,12 @@
       margin-top: 20px;
     }
 
-    /* 📱 Ajustes para móviles */
     @media (max-width: 480px) {
+      .logo {
+        max-width: 130px;
+        margin-bottom: 20px;
+      }
+
       .container {
         padding: 15px;
       }
@@ -81,14 +99,32 @@
         font-size: 1.3rem;
       }
     }
+
+    /* Canvas para confeti */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
+  <img src="logo.png" alt="Logo" class="logo">
+
   <div class="container" id="app">
     <h2>Introdueix el teu nom</h2>
     <input type="text" id="nameInput" placeholder="Escriu el teu nom...">
     <button onclick="assignGroup()">Entrar</button>
   </div>
+
+  <!-- Canvas para la animación -->
+  <canvas id="confetti-canvas"></canvas>
+
+
 
   <script>
         const alumnes = [
@@ -558,10 +594,40 @@
           <p>El teu grup és:</p>
           <div class="group">Grup ${grupTrobat}</div>
         `;
+
+        lanzarConfeti(); // 🎉 lanzamos confeti
       } else {
         alert("Nom no trobat. Si us plau, comprova la teva ortografia.");
       }
     }
+
+    // 🎊 Función de confeti simple
+    function lanzarConfeti() {
+      const duration = 3 * 1000; // 3 segundos
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
   </script>
+
+  <!-- Librería de confeti desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </body>
 </html>
